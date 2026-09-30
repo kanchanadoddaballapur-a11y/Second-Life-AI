@@ -319,14 +319,14 @@ export const Screen1Input: React.FC<Screen1InputProps> = ({
         
         <h1 
           className="font-display text-3xl sm:text-4xl font-extrabold text-purple-950 dark:text-white tracking-tight"
-          style={{ backgroundColor: '#e3cdf6', color: '#0a0808' }}
+          style={{ backgroundColor: '#e3cdf6', color: '#090808' }}
         >
           Let's understand your device ✨
         </h1>
         
         <p 
           className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-xl mx-auto"
-          style={{ fontSize: '16px', color: '#7f59a9' }}
+          style={{ fontSize: '16px', color: '#a25fdc' }}
         >
           Answer simple questions in normal everyday words. We will figure out whether it can be repaired, reused, or sold.
         </p>
