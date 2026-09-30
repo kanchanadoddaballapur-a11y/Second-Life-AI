@@ -204,6 +204,8 @@ export interface UserPreferences {
   distanceLimit: DistanceLimitOption;
   priority: UserPriority;
   providerTypes: ProviderType[];
+  marketDemand?: 'high' | 'moderate' | 'low';
+  expectedSalePrice?: number | null;
   location: {
     city: string;
     pinCode?: string;

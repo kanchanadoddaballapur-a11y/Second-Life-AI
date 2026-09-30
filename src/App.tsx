@@ -271,7 +271,7 @@ export default function App() {
                 analysis={analysis}
                 onProceed={() => setCurrentStep(4)}
                 onBack={() => setCurrentStep(1)}
-                onSelectPathwayAndGo={(pathway, serviceFormat) => {
+                onSelectPathwayAndGo={(pathway, serviceFormat, marketDemand, expectedSalePrice) => {
                   const pathwayMap: Record<string, any> = {
                     'fix': 'repair',
                     'refurbish': 'refurbish',
@@ -282,7 +282,11 @@ export default function App() {
                   const mapped = pathwayMap[pathway] || 'repair';
                   setPreferences(prev => ({
                     ...prev,
-                    selectedPathways: [mapped]
+                    selectedPathways: [mapped],
+                    marketDemand: marketDemand || prev.marketDemand,
+                    expectedSalePrice: expectedSalePrice !== undefined ? expectedSalePrice : prev.expectedSalePrice,
+                    budgetPreset: mapped === 'donate' ? 'none' : prev.budgetPreset,
+                    isCustomBudget: mapped === 'donate' ? false : prev.isCustomBudget
                   }));
 
                   if (pathway === 'fix' && serviceFormat === 'home') {

@@ -23,7 +23,12 @@ interface Screen2AssessmentProps {
   analysis: AnalysisResult;
   onProceed: () => void;
   onBack: () => void;
-  onSelectPathwayAndGo?: (pathway: string, serviceFormat?: 'home' | 'shop') => void;
+  onSelectPathwayAndGo?: (
+    pathway: string, 
+    serviceFormat?: 'home' | 'shop',
+    marketDemand?: 'high' | 'moderate' | 'low',
+    expectedSalePrice?: number | null
+  ) => void;
 }
 
 export const Screen2Assessment: React.FC<Screen2AssessmentProps> = ({
@@ -35,6 +40,8 @@ export const Screen2Assessment: React.FC<Screen2AssessmentProps> = ({
   const [showTechnicalDetails, setShowTechnicalDetails] = useState(false);
   const [selectedAction, setSelectedAction] = useState<string>('fix');
   const [repairServicePreference, setRepairServicePreference] = useState<'home' | 'shop'>('home');
+  const [marketDemand, setMarketDemand] = useState<'high' | 'moderate' | 'low'>('high');
+  const [expectedSalePrice, setExpectedSalePrice] = useState<number>(5500);
 
   const { deviceIdentity, conditionTable } = analysis;
 
@@ -94,7 +101,12 @@ export const Screen2Assessment: React.FC<Screen2AssessmentProps> = ({
 
   const handleNext = () => {
     if (onSelectPathwayAndGo) {
-      onSelectPathwayAndGo(selectedAction, selectedAction === 'fix' ? repairServicePreference : undefined);
+      onSelectPathwayAndGo(
+        selectedAction, 
+        selectedAction === 'fix' ? repairServicePreference : undefined,
+        marketDemand,
+        expectedSalePrice
+      );
     } else {
       onProceed();
     }
@@ -276,6 +288,126 @@ export const Screen2Assessment: React.FC<Screen2AssessmentProps> = ({
                 </div>
               </button>
             </div>
+          </div>
+        )}
+
+        {/* DONATE SELECTION: Zero Estimated Cost & No Budget Shown */}
+        {selectedAction === 'donate' && (
+          <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border-2 border-emerald-300 dark:border-emerald-500/40 space-y-3 animate-in fade-in">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">🎁</span>
+              <div className="flex-1">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <strong className="text-sm font-extrabold text-emerald-950 dark:text-emerald-200">
+                    Community Donation & Free Educational Reuse
+                  </strong>
+                  <span className="px-2.5 py-1 rounded-full bg-emerald-600 text-white font-mono text-xs font-black shadow-sm">
+                    Estimated Cost: ₹0 (Free)
+                  </span>
+                </div>
+                <p className="text-xs text-emerald-800 dark:text-emerald-300 mt-1 leading-relaxed">
+                  ✓ <strong>Zero cost to you:</strong> No repair budget or payment required.
+                  Your device will be securely wiped and donated to verified schools and non-profit digital learning programs.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* RESELL OR RECYCLE SELECTION: Ask Demand & Sale Price (No Budget / Estimated Repair Cost) */}
+        {(selectedAction === 'sell' || selectedAction === 'recycle') && (
+          <div className="p-5 rounded-2xl bg-purple-50 dark:bg-purple-950/60 border-2 border-purple-300 dark:border-purple-500/50 space-y-4 animate-in fade-in">
+            
+            <div className="flex items-center justify-between border-b border-purple-200 dark:border-purple-800/60 pb-2.5">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">{selectedAction === 'sell' ? '💰' : '♻️'}</span>
+                <div>
+                  <strong className="text-sm font-extrabold text-purple-950 dark:text-white block">
+                    {selectedAction === 'sell' ? 'Resell / Buyback Assessment' : 'Authorized Recycling & Scrap Recovery'}
+                  </strong>
+                  <span className="text-xs text-purple-700 dark:text-purple-300 font-medium">
+                    No repair budget required · You receive payout / free certified disposal
+                  </span>
+                </div>
+              </div>
+              <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-purple-200 dark:bg-purple-800 text-purple-900 dark:text-purple-100">
+                Direct Payout
+              </span>
+            </div>
+
+            {/* Question 1: How much demand? */}
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-purple-950 dark:text-purple-200 flex items-center gap-1.5">
+                <span>📊</span>
+                <span>How much demand is there for this device in your area?</span>
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                {[
+                  { id: 'high', label: '🔥 High Demand', desc: 'Fast sale & high interest' },
+                  { id: 'moderate', label: '⚡ Moderate Demand', desc: 'Steady market value' },
+                  { id: 'low', label: '📦 Low / Scrap Demand', desc: 'Component / metal value' }
+                ].map((d) => (
+                  <button
+                    key={d.id}
+                    type="button"
+                    onClick={() => setMarketDemand(d.id as any)}
+                    className={`p-3 rounded-xl border-2 text-left transition-all ${
+                      marketDemand === d.id
+                        ? 'bg-purple-600 text-white border-purple-600 shadow-md ring-2 ring-purple-400/30'
+                        : 'bg-white dark:bg-[#0c0416] border-purple-200 dark:border-purple-800 text-slate-800 dark:text-slate-200 hover:border-purple-400'
+                    }`}
+                  >
+                    <strong className="block text-xs font-extrabold">{d.label}</strong>
+                    <span className={`text-[10px] block mt-0.5 ${marketDemand === d.id ? 'text-purple-100' : 'text-slate-500 dark:text-slate-400'}`}>
+                      {d.desc}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Question 2: How much can I sell it for? */}
+            <div className="space-y-2 pt-1">
+              <label className="text-xs font-bold text-purple-950 dark:text-purple-200 flex items-center gap-1.5">
+                <span>💵</span>
+                <span>How much can you sell it for? (Expected Payout to You)</span>
+              </label>
+              
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <div className="relative flex-1">
+                  <span className="absolute left-3.5 top-3 text-sm font-bold text-purple-700 dark:text-purple-300">₹</span>
+                  <input
+                    type="number"
+                    value={expectedSalePrice || ''}
+                    onChange={(e) => setExpectedSalePrice(Number(e.target.value) || 0)}
+                    placeholder={selectedAction === 'sell' ? 'e.g. 5000' : 'e.g. 350'}
+                    className="w-full pl-8 pr-4 py-2.5 rounded-xl border-2 border-purple-400 dark:border-purple-600 bg-white dark:bg-[#0a0314] text-sm font-extrabold text-purple-950 dark:text-white focus:outline-none focus:border-purple-500"
+                  />
+                </div>
+
+                {/* Quick amount suggestion chips */}
+                <div className="flex flex-wrap gap-1.5">
+                  {(selectedAction === 'sell' ? [3000, 5500, 8500, 12000] : [0, 250, 500, 800]).map((amt) => (
+                    <button
+                      key={amt}
+                      type="button"
+                      onClick={() => setExpectedSalePrice(amt)}
+                      className={`px-3 py-2 rounded-xl text-xs font-bold transition-all border ${
+                        expectedSalePrice === amt
+                          ? 'bg-purple-700 text-white border-purple-700 shadow-sm'
+                          : 'bg-purple-100 dark:bg-purple-900/40 text-purple-900 dark:text-purple-200 border-purple-200 dark:border-purple-700 hover:bg-purple-200'
+                      }`}
+                    >
+                      {amt === 0 ? 'Free Recycle' : `₹${amt.toLocaleString('en-IN')}`}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <p className="text-[11px] text-purple-700 dark:text-purple-300">
+                💡 {selectedAction === 'sell' ? 'Local buyback stores and direct buyers will quote around this value.' : 'CPCB certified e-waste facilities offer free eco-pickup or metal scrap credit.'}
+              </p>
+            </div>
+
           </div>
         )}
 

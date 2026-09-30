@@ -227,15 +227,30 @@ export const Screen4Providers: React.FC<Screen4ProvidersProps> = ({
             Distance: <strong className="text-white">≤ {preferences.distanceLimit === 'city' ? 'Citywide' : `${preferences.distanceLimit} km`}</strong>
           </span>
 
-          <span className="bg-slate-900 border border-slate-800 text-slate-200 px-2.5 py-1 rounded-lg">
-            Budget: <strong className="text-white font-mono">
-              {preferences.isCustomBudget
-                ? `₹${preferences.customBudgetMin ?? 0}–₹${preferences.customBudgetMax ?? '∞'}`
-                : preferences.budgetPreset === 'none'
-                ? 'No fixed limit'
-                : `₹${preferences.budgetPreset}`}
-            </strong>
-          </span>
+          {preferences.selectedPathways.includes('donate') ? (
+            <span className="bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 px-2.5 py-1 rounded-lg font-bold">
+              Cost: <strong className="text-white">₹0 (Free Donation)</strong>
+            </span>
+          ) : preferences.selectedPathways.includes('resell') || preferences.selectedPathways.includes('recycling') ? (
+            <>
+              <span className="bg-purple-950/80 border border-purple-500/40 text-purple-200 px-2.5 py-1 rounded-lg">
+                Demand: <strong className="text-white uppercase font-bold">{preferences.marketDemand || 'High'}</strong>
+              </span>
+              <span className="bg-purple-950/80 border border-purple-500/40 text-purple-200 px-2.5 py-1 rounded-lg">
+                Expected Payout: <strong className="text-emerald-400 font-bold font-mono">₹{(preferences.expectedSalePrice || (preferences.selectedPathways.includes('recycling') ? 350 : 5500)).toLocaleString('en-IN')}</strong>
+              </span>
+            </>
+          ) : (
+            <span className="bg-slate-900 border border-slate-800 text-slate-200 px-2.5 py-1 rounded-lg">
+              Budget: <strong className="text-white font-mono">
+                {preferences.isCustomBudget
+                  ? `₹${preferences.customBudgetMin ?? 0}–₹${preferences.customBudgetMax ?? '∞'}`
+                  : preferences.budgetPreset === 'none'
+                  ? 'No fixed limit'
+                  : `₹${preferences.budgetPreset}`}
+              </strong>
+            </span>
+          )}
 
           <button
             onClick={onBack}
@@ -438,19 +453,47 @@ export const Screen4Providers: React.FC<Screen4ProvidersProps> = ({
               {/* Standardized Core Attributes Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4 text-xs">
                 
-                {/* 💰 Estimated Cost (Strictly INR ₹) */}
+                {/* 💰 Estimated Cost or Expected Payout based on pathway */}
                 <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-3">
-                  <span className="text-[10px] uppercase font-mono text-slate-400 block mb-0.5">
-                    💰 Estimated Cost
-                  </span>
-                  <div className="text-base font-bold font-mono text-emerald-400">
-                    {provider.estimatedCost.min === 0 && provider.estimatedCost.max === 0
-                      ? '₹0 (Free / Donation)'
-                      : `₹${provider.estimatedCost.min.toLocaleString('en-IN')} – ₹${provider.estimatedCost.max.toLocaleString('en-IN')}`}
-                  </div>
-                  <p className="text-[10px] text-slate-400 mt-1 line-clamp-2">
-                    {provider.estimatedCost.notes}
-                  </p>
+                  {preferences.selectedPathways.includes('donate') ? (
+                    <>
+                      <span className="text-[10px] uppercase font-mono text-emerald-400 block mb-0.5 font-bold">
+                        🎁 Cost to You
+                      </span>
+                      <div className="text-base font-bold font-mono text-emerald-400">
+                        ₹0 (Free Donation)
+                      </div>
+                      <p className="text-[10px] text-slate-400 mt-1 line-clamp-2">
+                        Zero fees or charges. Free educational drop-off or pickup.
+                      </p>
+                    </>
+                  ) : preferences.selectedPathways.includes('resell') || preferences.selectedPathways.includes('recycling') ? (
+                    <>
+                      <span className="text-[10px] uppercase font-mono text-purple-300 block mb-0.5 font-bold">
+                        💵 Expected Payout to You
+                      </span>
+                      <div className="text-base font-bold font-mono text-emerald-400">
+                        ₹{(preferences.expectedSalePrice || (preferences.selectedPathways.includes('recycling') ? 350 : 5500)).toLocaleString('en-IN')}
+                      </div>
+                      <p className="text-[10px] text-purple-200 mt-1 line-clamp-2">
+                        Demand: {preferences.marketDemand ? preferences.marketDemand.toUpperCase() : 'HIGH'} · Direct cash or store credit
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-[10px] uppercase font-mono text-slate-400 block mb-0.5">
+                        💰 Estimated Cost
+                      </span>
+                      <div className="text-base font-bold font-mono text-emerald-400">
+                        {provider.estimatedCost.min === 0 && provider.estimatedCost.max === 0
+                          ? '₹0 (Free / Donation)'
+                          : `₹${provider.estimatedCost.min.toLocaleString('en-IN')} – ₹${provider.estimatedCost.max.toLocaleString('en-IN')}`}
+                      </div>
+                      <p className="text-[10px] text-slate-400 mt-1 line-clamp-2">
+                        {provider.estimatedCost.notes}
+                      </p>
+                    </>
+                  )}
                 </div>
 
                 {/* 🕒 Opening Hours */}

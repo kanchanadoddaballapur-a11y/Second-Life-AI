@@ -133,10 +133,16 @@ ENVIRONMENTAL IMPACT:
           <span className="text-xs font-mono uppercase text-emerald-400 tracking-wider">
             Stage 6 · Final Roadmap & Handover
           </span>
-          <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-white mt-1">
+          <h1 
+            className="font-display text-2xl sm:text-3xl font-extrabold mt-1"
+            style={{ color: '#000000' }}
+          >
             Your Selected Option ✨
           </h1>
-          <p className="text-xs text-purple-200 mt-1">
+          <p 
+            className="text-xs mt-1 font-semibold"
+            style={{ color: '#4a0e78' }}
+          >
             Review your chosen pathway, verified provider details, and actionable next steps.
           </p>
         </div>
@@ -180,25 +186,65 @@ ENVIRONMENTAL IMPACT:
             <span className="text-slate-400 text-[11px]">User-selected second-life path</span>
           </div>
 
-          <div className="bg-[#090317] border border-purple-500/20 rounded-2xl p-3.5">
-            <span className="text-[10px] uppercase font-mono text-slate-400 block mb-1">Your Budget Ceiling</span>
-            <strong className="text-purple-200 text-base font-mono font-bold block">
-              {budgetLabel}
-            </strong>
-            <span className="text-slate-400 text-[11px]">Calibrated strictly in ₹ INR</span>
-          </div>
+          {preferences.selectedPathways.includes('donate') ? (
+            <>
+              <div className="bg-[#090317] border border-emerald-500/30 rounded-2xl p-3.5">
+                <span className="text-[10px] uppercase font-mono text-emerald-400 block mb-1">Estimated Cost</span>
+                <strong className="text-emerald-400 text-base font-mono font-bold block">
+                  ₹0 (Free Donation)
+                </strong>
+                <span className="text-slate-400 text-[11px]">Zero charges / No fees</span>
+              </div>
 
-          <div className="bg-[#090317] border border-purple-500/20 rounded-2xl p-3.5">
-            <span className="text-[10px] uppercase font-mono text-slate-400 block mb-1">Estimated Expenditure</span>
-            <strong className="text-emerald-400 text-base font-mono font-bold block">
-              {selectedProvider.estimatedCost.min === 0 && selectedProvider.estimatedCost.max === 0
-                ? '₹0 (Free / Donation)'
-                : `₹${selectedProvider.estimatedCost.min.toLocaleString('en-IN')} – ₹${selectedProvider.estimatedCost.max.toLocaleString('en-IN')}`}
-            </strong>
-            <span className="text-[10px] text-slate-400 block mt-0.5 truncate">
-              {selectedProvider.estimatedCost.notes}
-            </span>
-          </div>
+              <div className="bg-[#090317] border border-emerald-500/30 rounded-2xl p-3.5">
+                <span className="text-[10px] uppercase font-mono text-emerald-400 block mb-1">Budget Required</span>
+                <strong className="text-white text-base font-bold block">
+                  None (Free Contribution)
+                </strong>
+                <span className="text-slate-400 text-[11px]">Verified educational programs</span>
+              </div>
+            </>
+          ) : preferences.selectedPathways.includes('resell') || preferences.selectedPathways.includes('recycling') ? (
+            <>
+              <div className="bg-[#090317] border border-purple-500/30 rounded-2xl p-3.5">
+                <span className="text-[10px] uppercase font-mono text-purple-300 block mb-1">Market Demand</span>
+                <strong className="text-white text-base font-bold uppercase block">
+                  {preferences.marketDemand ? `${preferences.marketDemand} Demand` : 'High Demand'}
+                </strong>
+                <span className="text-slate-400 text-[11px]">Active buyer interest</span>
+              </div>
+
+              <div className="bg-[#090317] border border-purple-500/30 rounded-2xl p-3.5">
+                <span className="text-[10px] uppercase font-mono text-purple-300 block mb-1">Expected Payout to You</span>
+                <strong className="text-emerald-400 text-base font-mono font-bold block">
+                  ₹{(preferences.expectedSalePrice || (preferences.selectedPathways.includes('recycling') ? 350 : 5500)).toLocaleString('en-IN')}
+                </strong>
+                <span className="text-slate-400 text-[11px]">Direct cash / buyback value</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="bg-[#090317] border border-purple-500/20 rounded-2xl p-3.5">
+                <span className="text-[10px] uppercase font-mono text-slate-400 block mb-1">Your Budget Ceiling</span>
+                <strong className="text-purple-200 text-base font-mono font-bold block">
+                  {budgetLabel}
+                </strong>
+                <span className="text-slate-400 text-[11px]">Calibrated strictly in ₹ INR</span>
+              </div>
+
+              <div className="bg-[#090317] border border-purple-500/20 rounded-2xl p-3.5">
+                <span className="text-[10px] uppercase font-mono text-slate-400 block mb-1">Estimated Expenditure</span>
+                <strong className="text-emerald-400 text-base font-mono font-bold block">
+                  {selectedProvider.estimatedCost.min === 0 && selectedProvider.estimatedCost.max === 0
+                    ? '₹0 (Free / Donation)'
+                    : `₹${selectedProvider.estimatedCost.min.toLocaleString('en-IN')} – ₹${selectedProvider.estimatedCost.max.toLocaleString('en-IN')}`}
+                </strong>
+                <span className="text-[10px] text-slate-400 block mt-0.5 truncate">
+                  {selectedProvider.estimatedCost.notes}
+                </span>
+              </div>
+            </>
+          )}
 
           <div className="bg-[#090317] border border-purple-500/20 rounded-2xl p-3.5 sm:col-span-2 lg:col-span-2">
             <span className="text-[10px] uppercase font-mono text-slate-400 block mb-1">Selected Provider</span>
@@ -437,12 +483,6 @@ ENVIRONMENTAL IMPACT:
         </button>
 
         <div className="flex items-center gap-3">
-          <button
-            onClick={onOpenDossier}
-            className="text-purple-300 hover:text-emerald-300 underline"
-          >
-            Review Architectural Methodology
-          </button>
           <button
             onClick={onReset}
             className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-purple-900/60 hover:bg-purple-800 text-white font-semibold"
