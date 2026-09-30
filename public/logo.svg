@@ -1,0 +1,41 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="leafGradPrimary" x1="50" y1="20" x2="150" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#48bb3a" />
+      <stop offset="50%" stopColor="#2e7d32" />
+      <stop offset="100%" stopColor="#1b5e20" />
+    </linearGradient>
+    <linearGradient id="leafGradSecondary" x1="100" y1="30" x2="160" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#68d391" />
+      <stop offset="100%" stopColor="#276749" />
+    </linearGradient>
+    <linearGradient id="recycleGrad" x1="50" y1="70" x2="150" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#38a169" />
+      <stop offset="50%" stopColor="#2f855a" />
+      <stop offset="100%" stopColor="#22543d" />
+    </linearGradient>
+    <linearGradient id="orbitGrad" x1="20" y1="60" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#48bb3a" />
+      <stop offset="70%" stopColor="#276749" />
+      <stop offset="100%" stopColor="#1c4532" />
+    </linearGradient>
+  </defs>
+
+  <path d="M98 62 C85 45 60 30 45 32 C38 48 50 68 70 72 C80 74 92 68 98 62 Z" fill="url(#leafGradPrimary)" />
+  <path d="M50 38 C65 50 82 58 96 61" stroke="#a7f3d0" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M96 62 C108 42 135 32 155 35 C158 52 142 72 120 75 C108 76 99 68 96 62 Z" fill="url(#leafGradSecondary)" />
+  <path d="M102 61 C118 55 138 48 152 40" stroke="#bbf7d0" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M97 62 C96 70 94 76 90 80" stroke="#2f855a" stroke-width="3.5" stroke-linecap="round" />
+
+  <path d="M45 78 C25 105 28 145 52 168 C78 192 122 192 148 168 C172 145 175 105 155 78 C150 71 142 66 136 64" stroke="url(#orbitGrad)" stroke-width="7" stroke-linecap="round" stroke-dasharray="280 20" />
+  <path d="M54 88 C38 110 40 140 60 158 C80 178 118 178 138 158 C158 138 160 108 146 88" stroke="#48bb3a" stroke-width="2.5" stroke-opacity="0.8" stroke-linecap="round" />
+
+  <g transform="translate(100, 126) scale(0.68) translate(-100, -100)">
+    <path d="M80 50 L120 50 L115 62 L95 62 L85 80 L75 80 Z" fill="url(#recycleGrad)" />
+    <path d="M128 40 L146 56 L118 72 L124 58 L108 58 L114 44 Z" fill="url(#leafGradPrimary)" />
+    <path d="M142 90 L122 125 L111 119 L121 102 L101 102 L101 91 Z" fill="url(#recycleGrad)" />
+    <path d="M125 138 L122 116 L154 116 L144 125 L152 138 L138 140 Z" fill="url(#leafGradPrimary)" />
+    <path d="M78 125 L58 90 L69 84 L79 101 L89 83 L98 88 Z" fill="url(#recycleGrad)" />
+    <path d="M46 88 L68 85 L56 114 L56 102 L42 102 L42 88 Z" fill="url(#leafGradPrimary)" />
+  </g>
+</svg>

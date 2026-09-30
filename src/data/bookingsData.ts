@@ -1,0 +1,301 @@
+import { BookingItem, BookingNotification } from '../types';
+
+export const INITIAL_BOOKINGS: BookingItem[] = [
+  {
+    id: 'bk-1081',
+    bookingNumber: 'SL-BK-8942',
+    customerName: 'Priya Sharma',
+    customerPhone: '+91 98450 12345',
+    customerEmail: 'priya.sharma@example.com',
+    serviceAddress: 'Flat 402, Green Glen Layout, Bellandur, Bengaluru, Karnataka 560103',
+    deviceType: 'Laptop',
+    deviceBrand: 'Dell',
+    deviceModel: 'Inspiron 15 (5-Year Model)',
+    requiredService: 'Battery Replacement & Thermal Repaste',
+    problemDescription: 'Battery does not hold charge; shuts down instantly when unplugged. Display and motherboard fully functional.',
+    preferredDate: 'Tomorrow, Oct 18, 2026',
+    preferredTime: '10:00 AM – 12:00 PM',
+    estimatedCost: 3200,
+    finalCost: undefined,
+    status: 'scheduled',
+    serviceType: 'home_service',
+    providerId: 'prov-lapzone-repair-2',
+    providerName: 'Lapzone Chip-Level Laptop Clinic',
+    providerPhone: '+91 98450 21234',
+    providerWebsite: 'https://lapzonerepairs.in',
+    providerRating: 4.8,
+    bookingNotes: 'Doorstep technician assigned. Please have device on charging desk.',
+    createdAt: '2026-10-16T14:30:00Z',
+    isHomeService: true,
+    externalBookingUrl: 'https://lapzonerepairs.in/book'
+  },
+  {
+    id: 'bk-1082',
+    bookingNumber: 'SL-BK-7419',
+    customerName: 'Priya Sharma',
+    customerPhone: '+91 98450 12345',
+    customerEmail: 'priya.sharma@example.com',
+    serviceAddress: 'Flat 402, Green Glen Layout, Bellandur, Bengaluru, Karnataka 560103',
+    deviceType: 'Smartphone',
+    deviceBrand: 'Samsung',
+    deviceModel: 'Galaxy S21',
+    requiredService: 'OLED Display Replacement & Battery Calibration',
+    problemDescription: 'Cracked outer glass, touch responsive, battery health 78%.',
+    preferredDate: '12 Sep 2026',
+    preferredTime: '02:00 PM – 04:00 PM',
+    estimatedCost: 4800,
+    finalCost: 4750,
+    status: 'completed',
+    serviceType: 'home_service',
+    providerId: 'prov-urban-comp-1',
+    providerName: 'Urban Company Electronics Home Service',
+    providerPhone: '+91 80 4680 9000',
+    providerWebsite: 'https://www.urbancompany.com',
+    providerRating: 4.7,
+    bookingNotes: 'Service completed successfully. 6-month screen warranty issued.',
+    createdAt: '2026-09-11T10:00:00Z',
+    isHomeService: true,
+    externalBookingUrl: 'https://www.urbancompany.com/bangalore-laptop-repair'
+  },
+  {
+    id: 'bk-1083',
+    bookingNumber: 'SL-BK-6320',
+    customerName: 'Priya Sharma',
+    customerPhone: '+91 98450 12345',
+    customerEmail: 'priya.sharma@example.com',
+    serviceAddress: 'Flat 402, Green Glen Layout, Bellandur, Bengaluru, Karnataka 560103',
+    deviceType: 'Tablet',
+    deviceBrand: 'Apple',
+    deviceModel: 'iPad 8th Gen',
+    requiredService: 'Digitizer Ribbon Cable Check & Diagnostic',
+    problemDescription: 'Intermittent touch dead-zones near lower bezel.',
+    preferredDate: '24 Aug 2026',
+    preferredTime: '11:00 AM – 01:00 PM',
+    estimatedCost: 1800,
+    finalCost: 1800,
+    status: 'completed',
+    serviceType: 'pickup_delivery',
+    providerId: 'prov-cashify-resell-1',
+    providerName: 'Cashify Doorstep Repair & Buyback',
+    providerPhone: '+91 72900 68900',
+    providerWebsite: 'https://www.cashify.in',
+    providerRating: 4.4,
+    bookingNotes: 'Picked up from doorstep and returned within 24 hours.',
+    createdAt: '2026-08-23T09:15:00Z',
+    isHomeService: false,
+    externalBookingUrl: 'https://www.cashify.in/repair'
+  },
+  {
+    id: 'bk-1084',
+    bookingNumber: 'SL-BK-9122',
+    customerName: 'Priya Sharma',
+    customerPhone: '+91 98450 12345',
+    customerEmail: 'priya.sharma@example.com',
+    serviceAddress: 'Flat 402, Green Glen Layout, Bellandur, Bengaluru, Karnataka 560103',
+    deviceType: 'Laptop',
+    deviceBrand: 'Lenovo',
+    deviceModel: 'ThinkPad T480',
+    requiredService: 'Thermal Fan Replacement & Dust Cleaning',
+    problemDescription: 'Fan makes loud grinding noise; laptop heats up quickly.',
+    preferredDate: 'Friday, Oct 24, 2026',
+    preferredTime: '03:00 PM – 05:00 PM',
+    estimatedCost: 1600,
+    finalCost: undefined,
+    status: 'pending',
+    serviceType: 'home_service',
+    providerId: 'prov-lapzone-repair-2',
+    providerName: 'Lapzone Chip-Level Laptop Clinic',
+    providerPhone: '+91 98450 21234',
+    providerWebsite: 'https://lapzonerepairs.in',
+    providerRating: 4.8,
+    bookingNotes: 'Requested home visit. Awaiting technician assignment confirmation.',
+    createdAt: '2026-10-17T11:00:00Z',
+    isHomeService: true,
+    externalBookingUrl: 'https://lapzonerepairs.in/book'
+  },
+  {
+    id: 'bk-1085',
+    bookingNumber: 'SL-BK-5011',
+    customerName: 'Priya Sharma',
+    customerPhone: '+91 98450 12345',
+    customerEmail: 'priya.sharma@example.com',
+    serviceAddress: 'Flat 402, Green Glen Layout, Bellandur, Bengaluru, Karnataka 560103',
+    deviceType: 'Gaming Laptop',
+    deviceBrand: 'Lenovo',
+    deviceModel: 'Legion 5 Gaming',
+    requiredService: 'Liquid Damage Motherboard Assessment',
+    problemDescription: 'Water spilled on keyboard. Device failed to boot.',
+    preferredDate: '05 Aug 2026',
+    preferredTime: '10:00 AM – 12:00 PM',
+    estimatedCost: 2200,
+    finalCost: 0,
+    status: 'cancelled',
+    serviceType: 'home_service',
+    providerId: 'prov-urban-comp-1',
+    providerName: 'Urban Company Electronics Home Service',
+    providerPhone: '+91 80 4680 9000',
+    providerWebsite: 'https://www.urbancompany.com',
+    providerRating: 4.7,
+    bookingNotes: 'Cancelled by customer: decided to harvest components instead.',
+    createdAt: '2026-08-04T15:00:00Z',
+    isHomeService: true,
+    externalBookingUrl: 'https://www.urbancompany.com'
+  },
+  {
+    id: 'bk-1086',
+    bookingNumber: 'SL-BK-4190',
+    customerName: 'Priya Sharma',
+    customerPhone: '+91 98450 12345',
+    customerEmail: 'priya.sharma@example.com',
+    serviceAddress: 'Flat 402, Green Glen Layout, Bellandur, Bengaluru, Karnataka 560103',
+    deviceType: 'Smartphone',
+    deviceBrand: 'OnePlus',
+    deviceModel: '9 Pro',
+    requiredService: 'USB-C Charging Port Replacement',
+    problemDescription: 'Loose cable connection; cable falls out easily.',
+    preferredDate: '18 Jul 2026',
+    preferredTime: '04:00 PM – 06:00 PM',
+    estimatedCost: 1950,
+    finalCost: 1950,
+    status: 'rescheduled',
+    serviceType: 'pickup_delivery',
+    providerId: 'prov-cashify-resell-1',
+    providerName: 'Cashify Doorstep Repair & Buyback',
+    providerPhone: '+91 72900 68900',
+    providerWebsite: 'https://www.cashify.in',
+    providerRating: 4.4,
+    bookingNotes: 'Rescheduled from July 17 to July 18 on user request. Service delivered.',
+    createdAt: '2026-07-16T12:00:00Z',
+    isHomeService: false,
+    externalBookingUrl: 'https://www.cashify.in'
+  }
+];
+
+export const INITIAL_NOTIFICATIONS: BookingNotification[] = [
+  {
+    id: 'notif-1',
+    title: '⏰ Upcoming Service Tomorrow',
+    message: 'Your home laptop battery repair by Lapzone Clinic is scheduled for tomorrow at 10:00 AM.',
+    type: 'upcoming',
+    timestamp: '1 hour ago',
+    read: false,
+    bookingId: 'bk-1081'
+  },
+  {
+    id: 'notif-2',
+    title: '📅 Booking Confirmed',
+    message: 'Booking SL-BK-8942 has been confirmed by technician Rajesh K.',
+    type: 'confirmed',
+    timestamp: 'Yesterday',
+    read: true,
+    bookingId: 'bk-1081'
+  },
+  {
+    id: 'notif-3',
+    title: '✅ Service Completed',
+    message: 'Samsung Galaxy S21 OLED service marked completed with 6-month warranty.',
+    type: 'completed',
+    timestamp: '12 Sep 2026',
+    read: true,
+    bookingId: 'bk-1082'
+  }
+];
+
+export interface OnlineBookingProvider {
+  id: string;
+  name: string;
+  badge: string;
+  homeServiceAvailable: boolean;
+  doorstepPickupAvailable: boolean;
+  storeVisitAvailable: boolean;
+  serviceTypes: string[];
+  startingPriceInr: number;
+  serviceArea: string;
+  rating: number;
+  reviewCount: number;
+  nextAvailableSlot: string;
+  officialBookingWebsite: string;
+  phone: string;
+  address: string;
+  distanceKm: number;
+  description: string;
+}
+
+export const ONLINE_BOOKING_PROVIDERS: OnlineBookingProvider[] = [
+  {
+    id: 'prov-urban-comp-1',
+    name: 'Urban Company Electronics Home Service',
+    badge: 'Verified Doorstep Partner',
+    homeServiceAvailable: true,
+    doorstepPickupAvailable: true,
+    storeVisitAvailable: false,
+    serviceTypes: ['Laptop Repair at Home', 'Battery Replacement', 'Keyboard Fix', 'OS & Software Refresh'],
+    startingPriceInr: 1299,
+    serviceArea: 'Bengaluru (Koramangala, HSR, Indiranagar, Whitefield, Bellandur)',
+    rating: 4.7,
+    reviewCount: 14820,
+    nextAvailableSlot: 'Tomorrow, 10:00 AM',
+    officialBookingWebsite: 'https://www.urbancompany.com/bangalore-laptop-repair',
+    phone: '+91 80 4680 9000',
+    address: 'Doorstep Service Across Bengaluru Metro',
+    distanceKm: 1.2,
+    description: 'Trained and background-verified technicians service your laptop or desktop directly on your premises.'
+  },
+  {
+    id: 'prov-cashify-resell-1',
+    name: 'Cashify Doorstep Repair & Buyback',
+    badge: 'Certified Platform',
+    homeServiceAvailable: true,
+    doorstepPickupAvailable: true,
+    storeVisitAvailable: true,
+    serviceTypes: ['Mobile Screen & Battery Repair', 'Laptop Diagnosis', 'Instant Cash Buyback'],
+    startingPriceInr: 1499,
+    serviceArea: 'Bengaluru Citywide',
+    rating: 4.5,
+    reviewCount: 9230,
+    nextAvailableSlot: 'Today, 04:00 PM',
+    officialBookingWebsite: 'https://www.cashify.in/repair',
+    phone: '+91 72900 68900',
+    address: 'Koramangala 5th Block & Doorstep Fleet, Bengaluru',
+    distanceKm: 2.1,
+    description: 'On-site mobile and laptop repairs performed in mobile repair vans or in-home within 60 minutes.'
+  },
+  {
+    id: 'prov-lapzone-repair-2',
+    name: 'Lapzone Chip-Level Laptop Clinic',
+    badge: 'Certified Independent Lab',
+    homeServiceAvailable: true,
+    doorstepPickupAvailable: true,
+    storeVisitAvailable: true,
+    serviceTypes: ['Modular Battery Swap', 'Motherboard Micro-soldering', 'Ultrasonic Thermal Cleaning'],
+    startingPriceInr: 1800,
+    serviceArea: 'Indiranagar, Koramangala, Domlur, MG Road',
+    rating: 4.8,
+    reviewCount: 312,
+    nextAvailableSlot: 'Tomorrow, 11:30 AM',
+    officialBookingWebsite: 'https://lapzonerepairs.in',
+    phone: '+91 98450 21234',
+    address: 'Shop 14, 1st Floor, CMH Road, Indiranagar, Bengaluru',
+    distanceKm: 2.6,
+    description: 'Specialist micro-electronics clinic offering both doorstep pickup/service and express lab repairs.'
+  },
+  {
+    id: 'prov-techpro-home',
+    name: 'TechPro Certified Electronics Lab',
+    badge: 'ISO-9001 Certified',
+    homeServiceAvailable: true,
+    doorstepPickupAvailable: true,
+    storeVisitAvailable: true,
+    serviceTypes: ['Doorstep Battery Test & Cell Swap', 'Display Replacement', 'Data Sanitization'],
+    startingPriceInr: 2100,
+    serviceArea: 'HSR Layout, BTM, Electronic City, Sarjapur Road',
+    rating: 4.6,
+    reviewCount: 219,
+    nextAvailableSlot: 'Tomorrow, 02:00 PM',
+    officialBookingWebsite: 'https://techprolab.in',
+    phone: '+91 80 4956 7711',
+    address: '27th Main, Sector 1, HSR Layout, Bengaluru',
+    distanceKm: 3.1,
+    description: 'Equipped with portable battery capacity analyzers and ESD-safe field repair kits.'
+  }
+];

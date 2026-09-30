@@ -1,0 +1,6 @@
+{
+  "name": "SECOND LIFE AI — E-Waste Second-Life Engine",
+  "description": "Evidence-based AI decision engine determining the optimal next life for electronic devices (Repair, Reuse, Refurbish, Resell, Donate, Component Recovery, or Recycling) with transparent economics and environmental impact.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
